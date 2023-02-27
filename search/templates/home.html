@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="search center">
+   <form method = "GET">
+     <input type="text" placeholder="Search" name='query' />
+     <button><i class="material-icons">search</i></button>
+   </form>
+ </div>
+ 
+
+<div class="videos">
+{% for item in results.result %}
+<div class="video">
+ <a href = "{% url 'video' item.id %}">
+   <div class="thumbnail">
+       {% with item.id|add:'.jpg' as image_static %}
+          <img src="{% static image_static %}" alt="" />
+        {% endwith %}
+    </div>
+</a>
+      <div class="details">
+         <div class="author">
+           {% with item.channel.id|add:'.jpg' as image_static %}
+            <img src="{% static image_static %}" alt="" />
+           {% endwith %}
+         </div>
+         <div class="title">
+            <h3>
+                {{item.title}}
+            </h3>
+             <span>
+                    {{item.channel.name}}
+              </span>
+              <span> {{item.viewCount.short}} • {{item.publishedTime}} </span>
+         </div>
+       </div>
+
+     </div>
+
+{% endfor %}
+</div>
+
+{% endblock content %}

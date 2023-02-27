@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h4>{{data}}</h4>
+
+    <a about='_blank' href = "{% url 'download' data %}">Download</a>
+{% with 'video/'|add:data as video %}
+<video controls ><source src="{% static video %}" type="video/mp4">Download</video>
+{% endwith %}
+
+
+{% endblock content %}
